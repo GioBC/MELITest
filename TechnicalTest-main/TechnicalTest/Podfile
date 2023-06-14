@@ -1,0 +1,57 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '13.0'
+workspace 'TechnicalTest.xcworkspace'
+use_frameworks!
+inhibit_all_warnings!
+
+def di
+  pod "Resolver"
+end
+
+def network
+  pod 'Alamofire'
+end
+
+def allPods
+  network
+  di
+end
+
+target 'TechnicalTest' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  allPods
+  target 'TechnicalTestTests' do
+    inherit! :search_paths
+    allPods
+  end
+  
+  target 'TechnicalTestUITests' do
+    # Pods for testing
+  end
+  
+end
+
+
+target 'TechnicalTestCore' do
+  inherit! :search_paths
+  project 'TechnicalTestCore/TechnicalTestCore.xcodeproj'
+  allPods
+  
+  target 'TechnicalTestCoreTests' do
+    inherit! :search_paths
+    allPods #needed again for this target
+  end
+  
+end
+
+target 'TechnicalTestData' do
+  inherit! :search_paths
+  project 'TechnicalTestData/TechnicalTestData.xcodeproj'
+  allPods
+  
+  target 'TechnicalTestDataTests' do
+    inherit! :search_paths
+    allPods #needed again for this target
+  end
+end
+
